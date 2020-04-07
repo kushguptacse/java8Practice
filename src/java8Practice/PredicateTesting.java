@@ -6,6 +6,11 @@ import java.util.function.Predicate;
 
 import java8Practice.model.Employee;
 
+/**
+ * interface Predicate<T>{ boolean test(T t); }
+ * @author G521885
+ *
+ */
 public class PredicateTesting {
 
 	public static void main(String[] args) {
