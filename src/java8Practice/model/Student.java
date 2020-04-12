@@ -10,6 +10,10 @@ public class Student {
 		this.marks = marks;
 	}
 
+	public Student() {
+		System.out.println("Student default constructor");
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -20,6 +24,11 @@ public class Student {
 
 	public int getMarks() {
 		return marks;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [name=" + name + ", marks=" + marks + "]";
 	}
 
 	public void setMarks(int marks) {
