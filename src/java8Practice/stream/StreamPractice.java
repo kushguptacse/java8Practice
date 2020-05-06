@@ -1,8 +1,10 @@
 package java8Practice.stream;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.IntFunction;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -10,6 +12,7 @@ import java.util.stream.Stream;
 public class StreamPractice {
 
 	public static void main(String[] args) {
+
 		List<Integer> list = Arrays.asList(14, 2, 3, 4, 5, 6);
 		System.out.println(reverse(1534236469));
 		Stream<Integer> s = list.stream();
@@ -33,6 +36,35 @@ public class StreamPractice {
 		System.out.println(Arrays.toString(ar));
 		IntStream.of(1, 2, 3, 4).forEach(System.out::println);
 		System.out.println(Stream.of(ar).map(w -> w * 3).collect(Collectors.toList()));
+
+		//flat map can be used to generate 1 to many or many to one mapping stream.
+		//it can take number of stream and result single stream of it.
+		//always return single stream.
+		//e.g. - 1 to many mapping
+		List<Integer> list2 = Stream.of(1, 2, 3, 4, 5).flatMap(x -> Stream.of(x * x, x * x * x))
+				.collect(Collectors.toList());
+		System.out.println(list2);
+		//many to 1 mapping
+		List<List<Integer>> list3 = new ArrayList<>();
+		list3.add(Arrays.asList(1, 2, 3));
+		list3.add(Arrays.asList(4, 5, 6));
+		list3.add(Arrays.asList(7, 8, 9));
+		List<Integer> list4 = list3.stream().flatMap(x -> x.stream()).collect(Collectors.toList());
+		System.out.println(list4);
+		list2 = list4.stream().filter(x -> x % 2 == 0).flatMap(x -> Stream.of(x, x * 10)).collect(Collectors.toList());
+		System.out.println(list2);
+		System.out.println("-------------------");
+		//stream run order by order.1 record at a time.
+		int x2 = list2.stream().filter(x -> {
+			if (x == 6) {
+				throw new RuntimeException();
+			}
+			return x % 10 == 0;
+		}).findAny().get();
+		System.out.println(x2 + "--------");
+		System.out.println("java 8 iterate method");
+		Stream.iterate(0, x -> x + 1).limit(10).forEach(System.out::print);
+		System.out.println();
 	}
 
 	public static int reverse(int x) {
