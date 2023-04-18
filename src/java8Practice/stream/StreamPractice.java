@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.IntFunction;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -14,7 +13,6 @@ public class StreamPractice {
 	public static void main(String[] args) {
 
 		List<Integer> list = Arrays.asList(14, 2, 3, 4, 5, 6);
-		System.out.println(reverse(1534236469));
 		Stream<Integer> s = list.stream();
 		List<Integer> l2 = s.filter(i -> i % 2 == 0).collect(Collectors.toList());
 		System.out.println(l2);
@@ -65,19 +63,6 @@ public class StreamPractice {
 		System.out.println("java 8 iterate method");
 		Stream.iterate(0, x -> x + 1).limit(10).forEach(System.out::print);
 		System.out.println();
-	}
-
-	public static int reverse(int x) {
-		long res = 0;
-		while (x != 0) {
-			int num = x % 10;
-			res = res * 10 + num;
-			x = x / 10;
-			if (res > Integer.MAX_VALUE) {
-				return 0;
-			}
-		}
-		return (int) res;
 	}
 
 }
